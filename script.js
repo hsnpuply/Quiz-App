@@ -45,11 +45,13 @@ const questions = [
         ]
     },
 
-]
+];
 
 const questionElement = document.getElementById('question');
 const answerButton = document.getElementById('answers-buttons');
 const nextButton = document.getElementById('next-btn');
+const explainScore = document.getElementById('explain');
+explainScore.innerHTML='';
 
 let currentQuestionIndex= 0;
 let score = 0;
@@ -58,6 +60,7 @@ function startQuiz(){
     currentQuestionIndex=0;
     score=0;
     nextButton.innerHTML="Next"
+    explainScore.innerHTML=''
     showQuestion();
 }
 
@@ -90,7 +93,6 @@ function selectAnswer(e){
     const selectedBtn = e.target;
     const isCorrect = selectedBtn.dataset.correct === "true";
     if(isCorrect){
-
         selectedBtn.classList.add('correct')
         score++;
     }else{
@@ -127,5 +129,16 @@ function showScore (){
     questionElement.innerHTML = 'Youre Score ' + score + " out of " + questions.length + " !";
     nextButton.innerHTML="Play Again"
     nextButton.style.display="block"
+
+    const score_description =['you screw it up','So Sorry, Try again!','Not so bad,but its okay try again','Hmm, its okay Move on','Good, Nice Information','Maaaaaaaan You Did really Good Job , you desrved it so bad']
+
+    if(score >= 0 && score <= score_description.length){
+        explainScore.innerHTML = score_description[score];
+    }else {
+        explainScore.innerHTML = '';
+    }
+
 }
+
+
 startQuiz();
